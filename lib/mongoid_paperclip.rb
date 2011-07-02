@@ -86,7 +86,7 @@ module Mongoid
         field(:"#{field}_file_name",    :type => String)
         field(:"#{field}_content_type", :type => String)
         field(:"#{field}_file_size",    :type => Integer)
-        field(:"#{field}_updated_at",   :type => DateTime)
+        field(:"#{field}_updated_at",   :type => String)
       end
 
       ##
