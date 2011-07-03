@@ -70,7 +70,6 @@ module Mongoid
       # it'll also add the required fields for Paperclip since MongoDB is schemaless and doesn't
       # have migrations.
       def has_mongoid_attached_file(field, options = {})
-        attr_accessor :"#{field}_updated_at"
         ##
         # Include Paperclip and Paperclip::Glue for compatibility
         include ::Paperclip
@@ -86,13 +85,18 @@ module Mongoid
         field(:"#{field}_file_name",    :type => String)
         field(:"#{field}_content_type", :type => String)
         field(:"#{field}_file_size",    :type => Integer)
+        if options[:skip_updated_at]
+          attr_accessor :"#{field}_updated_at"
+        else
+          field(:"#{field}_updated_at", :type => DateTime)
+        end
       end
 
       ##
       # This method is deprecated
       def has_attached_file(field, options = {})
         raise "Mongoid::Paperclip#has_attached_file is deprecated, " +
-              "Use 'has_mongoid_attached_file' instead"
+          "Use 'has_mongoid_attached_file' instead"
       end
     end
 
