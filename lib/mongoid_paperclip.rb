@@ -70,7 +70,7 @@ module Mongoid
       # it'll also add the required fields for Paperclip since MongoDB is schemaless and doesn't
       # have migrations.
       def has_mongoid_attached_file(field, options = {})
-
+        attr_accessor :"#{field}_updated_at"
         ##
         # Include Paperclip and Paperclip::Glue for compatibility
         include ::Paperclip
@@ -86,7 +86,6 @@ module Mongoid
         field(:"#{field}_file_name",    :type => String)
         field(:"#{field}_content_type", :type => String)
         field(:"#{field}_file_size",    :type => Integer)
-        field(:"#{field}_updated_at",   :type => String)
       end
 
       ##
